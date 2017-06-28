@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>纯CSS图片溢出居中</title>
+	<link rel="stylesheet" href="main.css">
+</head>
+<body>
+	<p>图片尺寸未知且大于容器尺寸时的居中问题</p>
+	<div id="test1">
+		<img src="test1_monki.jpg" />
+	</div>
+	<div id="test2">
+		<img src="test2_monki.jpg" />
+	</div>
+	<div id="test3">
+		<div>
+			<img src="test3_monki.jpg" id="hide" />
+			<img src="test3_monki.jpg" />
+		</div>
+	</div>
+	<div id="test4">
+	</div>
+
+	<button id="widthAuto">高度撑满宽度自适应</button>
+	<button id="heightAuto">宽度撑满高度自适应</button>
+	<button id="back">还原</button>
+	<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
