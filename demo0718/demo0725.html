@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>最简单的双向数据绑定</title>
+</head>
+<body>
+	<div>
+		<input type="text" id="inputDom" placeholder="hello">
+		<p id="text">hello</p>
+	</div>
+	
+
+	<script>
+		var obj = {};
+		var inputDom = document.getElementById('inputDom');
+		var textDom = document.getElementById('text');
+		Object.defineProperty(obj, 'content', {
+			configurable: true,
+			enumerable: true,
+			set: function(newVal) {
+				inputDom.value = newVal;
+				textDom.innerHTML = newVal;
+			}
+		})
+		inputDom.addEventListener('keyup', function(e) {
+			obj.content = e.value;
+		})
+	</script>
+</body>
+</html>
