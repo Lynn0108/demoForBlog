@@ -4,6 +4,7 @@ function Compile(el, vm) {
 	if (this.$el) {
 		this.$fragment = this.node2fragment(this.$el);
 		this.init();
+		this.$el.appendChild(this.$fragment);
 	}
 }
 Compile.prototype = {
@@ -23,10 +24,10 @@ Compile.prototype = {
 			childNodes = el.childNodes;
 		[].slice.call(childNodes).forEach(function(node) {
 			var text = node.textContent;
-			var reg = /\{\{(.*)\}\}/g;
-			/*if (_this.isElementNode(node)) {
+			var reg = /\{\{(.*)\}\}/;
+			if (_this.isElementNode(node)) {
 				_this.compile(node);
-			} else */if(_this.isTextNode(node) && reg.test(text)) {
+			} else if(_this.isTextNode(node) && reg.test(text)) {
 				console.log(RegExp.$1);
 				_this.compileText(node, RegExp.$1);
 			}
@@ -35,11 +36,26 @@ Compile.prototype = {
 			}
 		})
 	},
-	compile: function() {
-
+	compile: function(node) {
+		var _this = this;
+		var attrs = node.attributes;
+		var name = '';
+		[].slice.call(attrs).forEach(function(attr) {
+			if (attr.name == 'v-model') {
+				name = attr.nodeValue;
+				node.addEventListener('input', function(e) {
+					_this.$vm[name] = e.target.value;
+				})
+				node.value = _this.$vm[name];
+				node.removeAttribute(attr);
+			}
+		})
+		new Watcher(this.$vm, node, name, 'input');
 	},
 	compileText: function(node, exp) {
-		compileUtil.text(node, this.$vm, exp);
+		// compileUtil.text(node, this.$vm, exp);
+		// node.nodeValue = this.$vm[exp];
+		new Watcher(this.$vm, node, exp, 'text');
 	},
 	isElementNode: function(node) {
         return node.nodeType == 1;
@@ -48,7 +64,7 @@ Compile.prototype = {
     	return node.nodeType == 3;
     }
 };
-var compileUtil = {
+/*var compileUtil = {
     text: function(node, vm, exp) {
         this.bind(node, vm, exp, 'text');
     },
@@ -62,12 +78,12 @@ var compileUtil = {
             updaterFn && updaterFn(node, value, oldValue);
         });
     }
-};
+};*/
 
-// 更新函数
-var updater = {
-    textUpdater: function(node, value) {
-        node.textContent = typeof value == 'undefined' ? '' : value;
-    }
-    // ...省略
-};
+// // 更新函数
+// var updater = {
+//     textUpdater: function(node, value) {
+//         node.textContent = typeof value == 'undefined' ? '' : value;
+//     }
+//     // ...省略
+// };

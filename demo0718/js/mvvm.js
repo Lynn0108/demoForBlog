@@ -1,12 +1,11 @@
 function MVVM(options) {
 	var _this = this;
-	this.$options = options;
-	var data = this._data = this.$options.data;
+	var data = this._data = options.data;
 	observe(data);
 	Object.keys(data).forEach(function(prop) {
 		_this._proxy(prop);
 	})
-	this.$compile = new Compile(options.el || document.body, this)
+	this.$compile = new Compile(options.el || document.body, this);
 }
 
 MVVM.prototype = {
