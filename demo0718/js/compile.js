@@ -64,26 +64,3 @@ Compile.prototype = {
     	return node.nodeType == 3;
     }
 };
-/*var compileUtil = {
-    text: function(node, vm, exp) {
-        this.bind(node, vm, exp, 'text');
-    },
- 	bind: function(node, vm, exp, dir) {
-        var updaterFn = updater[dir + 'Updater'];
-        // 第一次初始化视图
-        updaterFn && updaterFn(node, vm[exp]);
-        // 实例化订阅者，此操作会在对应的属性消息订阅器中添加了该订阅者watcher
-        new Watcher(vm, exp, function(value, oldValue) {
-            // 一旦属性值有变化，会收到通知执行此更新函数，更新视图
-            updaterFn && updaterFn(node, value, oldValue);
-        });
-    }
-};*/
-
-// // 更新函数
-// var updater = {
-//     textUpdater: function(node, value) {
-//         node.textContent = typeof value == 'undefined' ? '' : value;
-//     }
-//     // ...省略
-// };
