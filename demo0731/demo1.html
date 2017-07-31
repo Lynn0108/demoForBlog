@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>幽灵效果</title>
+	<meta charset="utf-8">
+	<style>
+		html, body {
+			height: 100%;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			background: url('images/flower.gif') no-repeat;
+			background-size: cover;
+		}
+		.ghost {
+			display: block;
+			height: 80%;
+
+			/*居中*/
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			margin: auto;
+			z-index: 100;
+
+		    animation: ghost ease-in-out 2s infinite;
+			/* Firefox: */
+			-moz-animation: ghost ease-in-out 2s infinite;
+			/* Safari 和 Chrome: */
+			-webkit-animation: ghost ease-in-out 2s infinite;
+			/* Opera: */
+			-o-animation: ghost ease-in-out 2s infinite;
+		}
+
+		@keyframes ghost {
+			0% {
+		        transform: translate3d(0, 0, 0);   /*translate3d用来开启硬件加速*/
+		        opacity: 1;
+		    }
+		    50% {
+		        transform: translate3d(0, -1em, 0);
+		        opacity: 0.85;
+		    }
+		    100% {
+		        transform: translate3d(0, 0, 0);
+		        opacity: 1;
+		    }
+		}
+		@-moz-keyframes ghost {/* Firefox: */
+			0% {
+		        -moz-transform: translate3d(0, 0, 0);
+		        opacity: 1;
+		    }
+		    50% {
+		        -moz-transform: translate3d(0, -1em, 0);
+		        opacity: 0.85;
+		    }
+		    100% {
+		        -moz-transform: translate3d(0, 0, 0);
+		        opacity: 1;
+		    }
+		}
+		@-webkit-keyframes ghost {/* Safari 和 Chrome: */
+			0% {
+		        -webkit-transform: translate3d(0, 0, 0);
+		        opacity: 1;
+		    }
+		    50% {
+		        -webkit-transform: translate3d(0, -1em, 0);
+		        opacity: 0.85;
+		    }
+		    100% {
+		        -webkit-transform: translate3d(0, 0, 0);
+		        opacity: 1;
+		    }
+		}
+		@-o-keyframes ghost {/* Opera: */
+			0% {
+		        -o-transform: translate3d(0, 0, 0);
+		        opacity: 1;
+		    }
+		    50% {
+		        -o-transform: translate3d(0, -1em, 0);
+		        opacity: 0.85;
+		    }
+		    100% {
+		        -o-transform: translate3d(0, 0, 0);
+		        opacity: 1;
+		    }
+		}
+	</style>
+</head>
+<body>
+	<img src="images/man.png" class="ghost">
+</body>
+</html>
