@@ -27,15 +27,15 @@ var main = {
 		})
 	}, 
 	clickToRoll: function(target) {
-		var index = _this.getIndex(target);
-		_this.contentRoll(index);
+		var index = this.getIndex(target);
+		this.contentRoll(index);
 	},
 	activeLi: function() {
-		for (var i = 0; i < _this.len; i++) {
-			if (this.ctx.scrollTop <= _this.imgDivH[i] + _this.imgDivOt[i] - 40) {
+		for (var i = 0; i < this.len; i++) {
+			if (this.ctx.scrollTop <= this.imgDivH[i] + this.imgDivOt[i] - 40) {
 				console.log(i);
-				_this.nav.querySelector('.active').className = '';
-				_this.nav.querySelectorAll('li')[i].className = 'active';
+				this.nav.querySelector('.active').className = '';
+				this.nav.querySelectorAll('li')[i].className = 'active';
 				break;
 			}
 		}
@@ -68,13 +68,22 @@ var main = {
 		return i; 
 	},
 	contentRoll: function (i) {
-		if (i > 0) {
-			this.ctx.scrollTop = this.imgDivH[i-1] + this.imgDivOt[i-1];
-		} else {
-			this.ctx.scrollTop = 0;
-		}
-		
+		var _this = this;
+		var nowPos = this.ctx.scrollTop;
+		// var lastPos = i > 0 ? this.imgDivH[i-1] + this.imgDivOt[i-1] : 0;
+		var lastPos = i > 0 ? this.imgDivOt[i] : 0;
+		var dis = (lastPos - nowPos) / 20;
+		var n = 0;
+		(function smoothRoll() {
+			if (n < 20) {
+				_this.ctx.scrollTop += dis;
+				setTimeout(smoothRoll, 10);
+				n++;
+			} else {
+				_this.ctx.scrollTop = lastPos;
+			}
+		})();
+		// this.ctx.scrollTop = this.imgDivH[i-1] + this.imgDivOt[i-1];
 	}
-
 }
 main.init();
